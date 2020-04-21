@@ -17,46 +17,60 @@ namespace ZaawansowaneProgramowanieObiektoweZal
 {
     public class Employee: Person
     {
-        //public delegate Delegacja(string s);
-        //public delegate zmiana;
 
-        public delegate void ChangedNameOrLastname(string a);
-        public ChangedNameOrLastname changedNameOrLastname; // zmienna, pole klasy
+        int counter = 1; //licznik zmian imienia i nazwiska
 
+        public List<string> oldNamesList = new List<string>(); // lista starych imion i nazwisk
 
-        
+        public delegate void ChangedNameOrLastname(string str); //delegat
+        public ChangedNameOrLastname changedNameOrLastname; // zmienna delegata
 
-        //public void ChangeName
+        public void ChangeName(string newName, string newLastname)
+        {
+            changedNameOrLastname(newName +" "+ newLastname);
+            Name = newName;
+            Lastname = newLastname;
 
-        
-
-
-
-
-
+        }
 
 
+        // metody dodane do delegata changedNameOrLastname
+        public void ChangedA(string a)
+        {
+            Console.WriteLine("Jest to "+ counter++ +" zmiana imienia i nazwiska z: " + this +" na -> "+a );
+        }
+
+        public void NewlineNotice(string a)
+        {
+            Console.WriteLine("Zmiana danych zapisana w rejestrze zapisana w rejestrze");
+            oldNamesList.Add(a);
+        }
+
+        public void MrsKrystynaAnswer(string a)
+        {
+            Console.WriteLine("Pani Krystyna jest zła na " + a + ", ponieważ wprowadzenie zmiany przeszkodziło w piciu kawy!!!!\n");
+        }
+        //------------------------------------------------
 
 
+        List<Operation> operations = new List<Operation>(); //prywatna lista operacji pracownika
+        public List<Operation> Operations { get { return operations; } } //zablkowoanie bezposredniej zmiany operacji (od tego jest metoda AddOperation)
 
-
-
-
-
-        List<Operation> operations = new List<Operation>();
-
-        public List<Operation> Operations { get { return operations; } }
-
-        decimal salary;
-
-
-
-        Contract contract;
+        decimal salary; //wynagrodzenie
+        Contract contract; //rodzaj zatrunienia (enum)
 
         public Employee(string name, string lastname, int age, Contract contract, string pesel, decimal salary) : base(name, lastname, age,pesel)
         {
             this.contract = contract;
             this.salary = salary;
+
+            //Dodananie metod do delegata
+            changedNameOrLastname += ChangedA;
+            changedNameOrLastname += NewlineNotice;
+            changedNameOrLastname += MrsKrystynaAnswer;
+            //----------------------------
+
+            oldNamesList.Add(name+" "+lastname); //zapisanie imiona do listy ktora prowadzi historie zmian imienia i nazwiska
         }
 
 
@@ -64,14 +78,14 @@ namespace ZaawansowaneProgramowanieObiektoweZal
         {
             get { return operations[i]; }
 
-            // Nie uzywamy settera poniewaz do dodawania uzywamy metody AddOperation.
+            // Brak settera, poniewaz do dodawania uzywamy metody AddOperation.
             // set { operations[i] = value; }
         }
 
 
 
 
-
+        
         public void ShowAllOperations()
         {
             Console.WriteLine($"Operacje pracownika: {this}");
@@ -120,6 +134,9 @@ namespace ZaawansowaneProgramowanieObiektoweZal
             return base.ToString() + " " + contract + " "+salary+" zł";
         }
 
+
+
+        //Przeciazenia operatorów
 
         public static bool operator < (Employee emp1, Employee emp2)
         {

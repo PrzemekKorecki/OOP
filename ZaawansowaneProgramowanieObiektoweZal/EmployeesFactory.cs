@@ -18,8 +18,5 @@ namespace ZaawansowaneProgramowanieObiektoweZal
         {
             return new Employee(name, lastname, age, Contract.FullTime, pesel, 3000m);
         }
-
-
-
     }
 }

@@ -10,8 +10,8 @@ namespace ZaawansowaneProgramowanieObiektoweZal
     {
         private string name, lastname;
 
-        public string Name { get { return name; }}
-        public string Lastname { get { return name; } }
+        public string Name { get { return name; } set { name = value; } }
+        public string Lastname { get { return lastname; } set { lastname = value; } }
 
 
 

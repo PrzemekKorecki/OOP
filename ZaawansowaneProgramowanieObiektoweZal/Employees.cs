@@ -32,7 +32,7 @@ namespace ZaawansowaneProgramowanieObiektoweZal
             {
                 foreach (Employee emp in employeesList)
                 {
-                    if (emp.name.Equals(name)&&emp.lastname.Equals(lastname))
+                    if (emp.Name.Equals(name)&&emp.Lastname.Equals(lastname))
                     {
                         return emp;
                     }
@@ -74,7 +74,7 @@ namespace ZaawansowaneProgramowanieObiektoweZal
 
             foreach (Employee emp in EmployeesList)
             {
-                if (emp.name==employee.name&&emp.lastname==employee.lastname&&emp.pesel==employee.pesel)
+                if (emp.Name==employee.Name&&emp.Lastname==employee.Lastname&&emp.pesel==employee.pesel)
                 {
                     Console.WriteLine($"Usunięto {emp}");
                     employeesList.Remove(emp);
